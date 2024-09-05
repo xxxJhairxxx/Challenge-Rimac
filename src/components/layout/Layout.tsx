@@ -4,14 +4,14 @@ import Footer from "../ui/Footer"
 import Container from "../globals/Container"
 
 interface props extends PropsWithChildren {
-
+    className?: string;
 }
 
-const Layout = ({ children }: props) => {
+const Layout = ({ children,className }: props) => {
     return (<>
         <Header />
         <main>
-            <Container>
+            <Container className={className}>
                 {children}
             </Container>
         </main>

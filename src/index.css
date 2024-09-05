@@ -83,8 +83,8 @@ html {
 
 @screen tablet {
 	.container-general {
-		max-width: 136rem;
-		@apply p-0 w-[92.2%] mx-auto;
+		max-width: 118.4rem;
+		@apply px-[3.2rem] w-[92.2%] mx-auto;
 	}
 }
 
