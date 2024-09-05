@@ -1,0 +1,95 @@
+/** @format */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import 'scale.css';
+@import 'icons.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 62.5%;
+}
+
+*{
+  font-size: 1.8rem;
+}
+
+
+.lato-thin {
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	font-style: normal;
+}
+
+.lato-light {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	font-style: normal;
+}
+
+.lato {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.lato-bold {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+.lato-black {
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+	font-style: normal;
+}
+
+.lato-thin-italic {
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	font-style: italic;
+}
+
+.lato-light-italic {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	font-style: italic;
+}
+
+.lato-regular-italic {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-style: italic;
+}
+
+.lato-bold-italic {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}
+
+.lato-black-italic {
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+	font-style: italic;
+}
+
+.container-general {
+	@apply px-0;
+}
+
+@screen tablet {
+	.container-general {
+		max-width: 136rem;
+		@apply p-0 w-[92.2%] mx-auto;
+	}
+}
+
+@screen laptop {
+	.container-general {
+		@apply w-[82%];
+	}
+}
