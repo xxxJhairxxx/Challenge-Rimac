@@ -1,5 +1,7 @@
-import About from "@/pages/About";
+
+import Planes from "@/pages/Planes";
 import Home from "@/pages/Home";
+import Summary from "@/pages/Summary";
 import {
     createBrowserRouter,
   } from "react-router-dom";
@@ -9,9 +11,12 @@ const router = createBrowserRouter([
       element: <Home/>,
     },
     {
-      path: "/about",
-      element: <About/>,
-    },
+      path: "/planes",
+      element: <Planes/>,
+    },{
+      path:"/summary",
+      element:<Summary/>
+    }
   ]);
 
   export default router

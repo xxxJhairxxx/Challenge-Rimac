@@ -1,172 +1,150 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent } from "react"
 import { useForm } from 'react-hook-form'
 
-interface props {
 
-}
-
-interface IErrors {
-    document: string,
-    phoneNumber: string,
-    acceptPrivacyPolicy: string,
-    acceptCommercialCommunications: string
-}
+// interface IErrors {
+//     document: string,
+//     phoneNumber: string,
+//     acceptPrivacyPolicy: string,
+//     acceptCommercialCommunications: string
+// }
 
 
 
 const CustomForm = () => {
 
-    const { handleSubmit } = useForm()
+    const { register, handleSubmit,  } = useForm()
 
-    const [formData, setFormData] = useState({
-        documentType: 'DNI',
-        documentNumber: '',
-        phoneNumber: '',
-        acceptPrivacyPolicy: false,
-        acceptCommercialCommunications: false,
-    })
 
-    const [errors, setErrors] = useState<IErrors>({
-        document: '',
-        phoneNumber: '',
-        acceptPrivacyPolicy: '',
-        acceptCommercialCommunications: '',
-    })
+    // const [errors, setErrors] = useState<IErrors>({
+    //     document: '',
+    //     phoneNumber: '',
+    //     acceptPrivacyPolicy: '',
+    //     acceptCommercialCommunications: '',
+    // })
 
 
 
-    const errorMessage = {
-        document: '*El documento ingresado no es válido',
-        phoneNumber: '*El celular ingresado no es válido',
-        acceptPrivacyPolicy: 'Por favor, acepta la Política de Privacidad.',
-        acceptCommercialCommunications: 'Por favor, acepta la Política de Comunicaciones Comerciales.',
-    }
+    // const errorMessage = {
+    //     document: '*El documento ingresado no es válido',
+    //     phoneNumber: '*El celular ingresado no es válido',
+    //     acceptPrivacyPolicy: 'Por favor, acepta la Política de Privacidad.',
+    //     acceptCommercialCommunications: 'Por favor, acepta la Política de Comunicaciones Comerciales.',
+    // }
 
 
-    const [showPopup, setShowPopup] = useState(false)
+    // const [showPopup, setShowPopup] = useState(false)
 
-    const handleInputChange = (e: any) => {
-        const { name, value, type, checked } = e.target
-        const newFormData = { ...formData, [name]: type === 'checkbox' ? checked : value }
-        const newErrors = { ...errors }
-    
-        // newErrors[name] = ''
-    
-        // if (name === 'documentType') {
-        //   newFormData.documentNumber = ''
-        //   setDocumentMaxLength(newFormData.documentType === 'DNI' ? 8 : 11)
-        // } else if (name === 'documentNumber') {
-        //   if ((formData.documentType === 'DNI' && value.length === 8) || (formData.documentType === 'RUC' && value.length === 11)) {
-        //     newErrors.document = ''
-        //   } else {
-        //     newErrors.document = errorMessage.document
-        //   }
-        // } else if (name === 'phoneNumber') {
-        //   if (value.length < 1) {
-        //     newErrors.phoneNumber = errorMessage.phoneNumber
-        //   }
-        // }
-        
-        // setFormData(newFormData)
-        // setErrors(newErrors)
-    
-        // if (authError) {
-        //   clearErrorUser()
-        // }
-      }
 
-    const onSubmit = handleSubmit((e:any) => {
+    const onSubmit = handleSubmit((data) => {
         // e.preventDefault()
-        console.log(e)
+        console.log(data)
 
     })
 
 
     return (
-        <form onSubmit={onSubmit} className="mt-6">
+        <form onSubmit={onSubmit} className="my-6 flex flex-col gap-y-5">
 
-            <div className='flex w-full items-center' >
-                <div className='w-fit min-w-[14rem] border-black rounded-2xl overflow-hidden border relative flex items-center'>
-                    <select className="w-full rounded-2xl p-5" title="selecton document" id="documentType" name="documentType" value={formData.documentType} onChange={handleInputChange}>
+            <div className='flex w-full h-[6rem] items-center ' >
+                <div className='w-fit min-w-[14rem] h-full border-black rounded-l-2xl border-r-0 overflow-hidden border relative flex items-center'>
+                    <select
+                        className="w-full rounded-2xl p-5 focus:outline-none"
+                        title="selecton document"
+                        {...register('type_document')}>
                         <option value="DNI">DNI</option>
-0                        <option value="RUC">RUC</option>
+                        <option value="RUC">RUC</option>
                     </select>
-                    <i className="icon-arrow absolute right-5 top-50 text-[1rem] pointer-events-none  bg-white" />
+                    <i className="icon-arrow absolute px-5 right-0 top-50 text-[1rem] pointer-events-none  bg-white" />
                 </div>
 
-                <div className={`input__login w-full ${errors.document ? 'error' : ''}`}>
+                <div className={`border border-black font-[500] rounded-r-2xl h-full w-full flex flex-col justify-center pl-5 `}>
+                    <label htmlFor="document" className="before">
+                        <div className="text-[1.2rem]">Nro. de documento</div>
+                    </label>
                     <input
                         type='text'
                         id='document'
-                        name='documentNumber'
-                        placeholder=' '
-                        value={formData.documentNumber}
-                        onChange={handleInputChange}
-                        maxLength={8}
-                        onInput={(e: FormEvent<HTMLInputElement>) => { e.currentTarget.value = e.currentTarget.value.replace(/[^\d]/g, '') }}
+                        className="text-[1.6rem] focus:outline-none"
+                        {...register('document', {
+                            pattern: /^[0-9]+$/
+                        })}
+                        onInput={(e: FormEvent<HTMLInputElement>) => {
+                            // Asegurar que el input solo acepte números y limitar a 9 dígitos
+                            if (e.currentTarget.value.length > 8) {
+                                e.currentTarget.value = e.currentTarget.value.slice(0, 8);
+                            }
+                        }}
                     />
 
-                    <label htmlFor="document" className="before">
-                        <div className="paragraph font-br-sonoma-regular">Nro. de documento</div>
-                    </label>
+
                 </div>
             </div>
-            {errors.document && <div className="text-[var(--red5)] text-[14px] leading-4 mt-2 mb-4">{errors.document}</div>}
+            {/* {errors.document && <div className="text-[var(--red5)] text-[14px] leading-4 mt-2 mb-4">{errors.document}</div>} */}
 
-            <div className={`input__login mt-4 ${errors.phoneNumber ? 'error' : ''}`}>
-                <input
-                    type='number'
-                    id='cel'
-                    name='phoneNumber'
-                    placeholder=' '
-                    value={formData.phoneNumber}
-                    onChange={handleInputChange}
-                />
+            <div className={` w-full flex font-[500] flex-col justify-center pl-5 pr-8 h-[6rem] 
+                 border-black rounded-2xl  overflow-hidden border focus:outline-none' 
+                 
+                 relative after:absolute after:top-0 after:right-0 after:h-full after:w-[4rem] after:bg-white after:content-['']
+                 `}>
 
-                <label htmlFor="cel" className="before">
-                    <div className="paragraph font-br-sonoma-regular">Celular</div>
+                <label htmlFor="cel" className="w-full t">
+                    <div className="text-[1.2rem]">Celular</div>
                 </label>
+
+                <input
+                    type='text'
+                    id='cel'
+                    {...register('phone', {
+                        required: true,
+                        maxLength: 9,
+                        pattern: /^[0-9]+$/
+                    })}
+                    onInput={(e: FormEvent<HTMLInputElement>) => {
+                        // Asegurar que el input solo acepte números y limitar a 9 dígitos
+                        if (e.currentTarget.value.length > 9) {
+                            e.currentTarget.value = e.currentTarget.value.slice(0, 9);
+                        }
+                    }}
+                    className="focus:outline-none "
+                />
             </div>
-            {errors.phoneNumber && <div className="text-[var(--red5)] text-[14px] leading-4 mt-2">{errors.phoneNumber}</div>}
+            {/* {errors.phoneNumber && <div className="text-[var(--red5)] text-[14px] leading-4 mt-2">{errors.phoneNumber}</div>} */}
             {/* {authError && <div className="text-[var(--red5)] text-[14px] leading-4 mt-4">{authError}</div>} */}
 
-            <div className='mt-6'>
-                <label className={`check__label ${errors.acceptPrivacyPolicy ? 'error' : ''}`}>
-                    <input
-                        type='checkbox'
-                        name='acceptPrivacyPolicy'
-                        checked={formData.acceptPrivacyPolicy}
-                        onChange={handleInputChange}
-                        hidden
-                    />
 
-                    <div className="check__label--box">
-                        <img src="./check.svg" className='i' alt="Check Box" />
-                    </div>
+            <div className="flex gap-3">
 
-                    <div className='paragraph font-br-sonoma-regular text-[12px] leading-[20px] tracking-[.1px] text-[#0A051E]'>Acepto la Política de Privacidad</div>
-                </label>
+                <input
+                    title="check"
+                    type='checkbox'
+                    name='acceptPrivacyPolicy'
+                    className="accent-black font-[400]"
 
-                <label className={`check__label mt-4 ${errors.acceptCommercialCommunications ? 'error' : ''}`}>
-                    <input
-                        type='checkbox'
-                        name='acceptCommercialCommunications'
-                        checked={formData.acceptCommercialCommunications}
-                        onChange={handleInputChange}
-                        hidden
-                    />
+                />
 
-                    <div className="check__label--box">
-                        <img src="./check.svg" className='i' alt="Check Box" />
-                    </div>
+                <div className='text-[1.2rem] leading-[20px] tracking-[.1px] text-[#0A051E]'>Acepto la Política de Privacidad</div>
 
-                    <div className='paragraph font-br-sonoma-regular text-[12px] leading-[20px] tracking-[.1px] text-[#0A051E]'>Acepto la Política Comunicaciones Comerciales</div>
-                </label>
-
-                <button type='button' onClick={()=>setShowPopup(true)} className='mt-[12px] underline text-[12px] leading-[20px] tracking-[.1px] text-[var(--gray1)] font-br-sonoma-bold active:text-[var(--neutrals6)] cursor-pointer inline-block'>Aplican Términos y Condiciones.</button>
-
-                <div className='block-btn'><button type='submit' className='btn font-br-sonoma-bold bg-[var(--gray1)]'>Cotiza aqui</button></div>
             </div>
+
+            <div className="flex gap-3">
+                <input
+                    title="check"
+                    type='checkbox'
+                    name='acceptCommercialCommunications'
+                    className="accent-black font-[400]"
+                />
+
+
+                <div className='paragraph font-br-sonoma-regular text-[1.2rem] leading-[20px] tracking-[.1px] text-[#0A051E]'>Acepto la Política Comunicaciones Comerciales</div>
+
+            </div>
+
+
+            <button type='button' className='underline text-[1.3rem] leading-[20px] font-bold text-left w-fit cursor-pointer inline-block'>Aplican Términos y Condiciones.</button>
+
+            <button type='submit' className='bg-dark-100 w-fit font-semibold text-white px-[4rem] py-[1.5rem] rounded-full text-[2rem]'>Cotiza aqui</button>
+
         </form>
     )
 }

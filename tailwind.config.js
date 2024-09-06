@@ -9,11 +9,11 @@ export default {
 		extend: {
 			colors: {
 				primary: '#509415',
-				secundary: '#093F51',
-				warning: '#DCE6D3',
-				success: '#093F51',
+				secundary: '#EDEFFC',
+				warning: '#FF1C44',
+				success: '#4F4FFF',
 				gris: {
-					100: '#D9D9D9',
+					100: '#7981B2',
 					200: '#606060',
 				},
 				dark: {

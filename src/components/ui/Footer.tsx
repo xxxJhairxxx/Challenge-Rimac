@@ -1,6 +1,7 @@
 import Container from "../globals/Container"
 import logo_2 from '@/assets/img/Logo_2.png'
 
+
 const Footer = () => {
     return (
         <footer className="bg-dark-100 h-[10.6rem] flex items-center text-white">
